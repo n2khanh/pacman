@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,7 +28,7 @@ public class SettingMenu extends JFrame {
         lblBackground.setBounds(0, 0, 650, 700);
 
         // Tải ảnh từ tệp hoặc URL
-        ImageIcon backgroundImage = new ImageIcon("C:/Users/Khanh/Downloads/pacman-main/Final/src/images/images.png");
+        ImageIcon backgroundImage = new ImageIcon("C://Users//phamt//Downloads//pacman-main//Final//src//images//images.png");
 
         Dimension frameSize = getSize();
 

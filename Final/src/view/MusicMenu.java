@@ -14,8 +14,8 @@ public class MusicMenu {
 
     private Clip backgroundMusic;
     private Clip deathMusic;
-    File background = new File("C:\\Users\\Khanh\\Downloads\\BackGroundMusicfinal.wav");
-    File death = new File("C:\\Users\\Khanh\\Downloads\\Deathmusic.wav");
+    File background = new File("C:/Users/phamt/Downloads/pacman-main/Final/src/musicIG/BackGroundMusicfinal.wav");
+    File death = new File("C://Users//phamt//Downloads//pacman-main//Final//src//musicIG//Deathmusic.wav");
 	
 	public void playBackgroundMusic() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
     	AudioInputStream backgroundInputStream = AudioSystem.getAudioInputStream(background);

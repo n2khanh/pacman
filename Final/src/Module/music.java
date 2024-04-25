@@ -23,10 +23,10 @@ class Music extends JPanel implements ActionListener {
         private Clip deathMusic;
         private Clip winMusic;
         private Clip gameoverMusic;
-        File background = new File("C:\\Users\\Khanh\\Downloads\\pacman-main\\Final\\bin\\musicIG\\BackGroundMusicfinal.wav");
-        File death = new File("C:\\Users\\Khanh\\Downloads\\pacman-main\\Final\\bin\\musicIG\\Deathmusic.wav");
-        File win = new File("C:\\Users\\Khanh\\Downloads\\pacman-main\\Final\\bin\\musicIG\\winGame.wav");
-        File gameover = new File("C:\\Users\\Khanh\\Downloads\\pacman-main\\Final\\bin\\musicIG\\gameoverMusic.wav");
+        File background = new File("C:/Users/phamt/Downloads/pacman-main/Final/bin/musicIG/BackGroundMusicfinal.wav");
+        File death = new File("C:/Users/phamt/Downloads/pacman-main/Final/bin/musicIG/Deathmusic.wav");
+        File win = new File("C:/Users/phamt/Downloads/pacman-main/Final/bin/musicIG/winGame.wav");
+        File gameover = new File("C:/Users/Khanh/Downloads/pacman-main/Final/bin/musicIG/gameoverMusic.wav");
 
 
        public void playBackgroundMusic() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -68,6 +68,7 @@ class Music extends JPanel implements ActionListener {
         public void stopBGMusic() {
         	backgroundMusic.stop();
         }
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub

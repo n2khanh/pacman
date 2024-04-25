@@ -31,7 +31,7 @@ public class HomeMenu extends JFrame {
 
 
 	public static void main(String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-					Image icon = new ImageIcon("C:/Users/Khanh/Downloads/pacman-main/Final/src/images/icon.png").getImage();
+					Image icon = new ImageIcon("C://Users//phamt//Downloads//pacman-main//Final//src//images//icon.png").getImage();
 					HomeMenu frame = new HomeMenu();
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
@@ -60,7 +60,7 @@ public class HomeMenu extends JFrame {
         lblBackground.setBounds(0, 0, 650, 700);
 
         // Tải ảnh từ tệp hoặc URL
-        ImageIcon backgroundImage = new ImageIcon("C:/Users/Khanh/Downloads/pacman-main/Final/src/images/images.png");
+        ImageIcon backgroundImage = new ImageIcon("C://Users//phamt//Downloads//pacman-main//Final//src//images//images.png");
 
         Dimension frameSize = getSize();
 

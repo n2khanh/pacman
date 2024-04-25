@@ -1,6 +1,5 @@
 package Module;
 
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +12,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import view.HomeMenu;
+
+import view.GameOver;
+import view.WinGame;
 
 public class Model extends JPanel implements ActionListener {
 
@@ -23,7 +24,7 @@ public class Model extends JPanel implements ActionListener {
     private boolean dying = false;
     private Music backgroundmusic = new Music();;
     private Music deathmusic = new Music();
-    private Music oveMusic = new Music();
+//    private Music oveMusic = new Music();
     private final int BLOCK_SIZE = 30 ;
     private final int N_BLOCKS = 21 ;
     private final int SCREEN_SIZE = BLOCK_SIZE * N_BLOCKS;
@@ -31,7 +32,8 @@ public class Model extends JPanel implements ActionListener {
     private final int PACMAN_SPEED = 6;
 
     private int N_GHOSTS = 6;
-    private int lives, score;
+    private int lives;
+    public int score;
     private int[] dx, dy;
     private int[] ghost_x, ghost_y, ghost_dx, ghost_dy, ghostSpeed;
 
@@ -83,12 +85,12 @@ public class Model extends JPanel implements ActionListener {
     
     
     private void loadImages() {
-    	down = new ImageIcon("C:/Users/Khanh/Downloads/pacman-main/Final/src/images/down.gif").getImage();
-    	up = new ImageIcon("C:/Users/Khanh/Downloads/pacman-main/Final/src/images/up.gif").getImage();
-    	left = new ImageIcon("C:/Users/Khanh/Downloads/pacman-main/Final/src/images/left.gif").getImage();
-    	right = new ImageIcon("C:/Users/Khanh/Downloads/pacman-main/Final/src/images/right.gif").getImage();
-        ghost = new ImageIcon("C:/Users/Khanh/Downloads/pacman-main/Final/src/images/ghost.gif").getImage();
-        heart = new ImageIcon("C:/Users/Khanh/Downloads/pacman-main/Final/src/images/heart.png").getImage();
+    	down = new ImageIcon("C:/Users/phamt/Downloads/pacman-main/Final/src/images/down.gif").getImage();
+    	up = new ImageIcon("C:/Users/phamt/Downloads/pacman-main/Final/src/images/up.gif").getImage();
+    	left = new ImageIcon("C:/Users/phamt/Downloads/pacman-main/Final/src/images/left.gif").getImage();
+    	right = new ImageIcon("C:/Users/phamt/Downloads/pacman-main/Final/src/images/right.gif").getImage();
+        ghost = new ImageIcon("C:/Users/phamt/Downloads/pacman-main/Final/src/images/ghost.gif").getImage();
+        heart = new ImageIcon("C:/Users/phamt/Downloads/pacman-main/Final/src/images/heart.png").getImage();
 
     }
        private void initVariables() {
@@ -159,8 +161,11 @@ public class Model extends JPanel implements ActionListener {
 
         if (finished) {
         	backgroundmusic.stopBGMusic();
-            backgroundmusic.playWinMusic();
-            inGame = false;
+            backgroundmusic.playWinMusic();;
+            inGame=false;
+            WinGame win=new WinGame();
+            win.initialize();
+            
         }
     }
 
@@ -169,13 +174,12 @@ public class Model extends JPanel implements ActionListener {
     	lives--;
 
         if (lives == 0) {
-
 			deathmusic.gameoverMusic();
 			backgroundmusic.stopBGMusic();
-            inGame = false;
-        }
-
-        continueLevel();
+			inGame=false;
+            GameOver lose=new GameOver();
+            lose.initialize();
+        }else continueLevel();
     }
 
     private void moveGhosts(Graphics2D g2d) {
@@ -260,7 +264,7 @@ public class Model extends JPanel implements ActionListener {
     	g2d.drawImage(ghost, x, y, this);
         }
 
-    private void movePacman() {
+    public void movePacman() {
 
         int pos;
         short ch;
@@ -364,7 +368,7 @@ public class Model extends JPanel implements ActionListener {
         }
     }
 
-    private void initGame() {
+    public void initGame() {
 
     	lives = 3;
         score = 0;
