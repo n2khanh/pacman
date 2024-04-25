@@ -12,13 +12,21 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JPanel;
 
-class music extends JPanel implements ActionListener {
+import javax.swing.*;
+import java.awt.*;
+import javax.sound.sampled.*;
+
+class Music extends JPanel implements ActionListener {
         private static final long serialVersionUID = 1L;
 
         private Clip backgroundMusic;
         private Clip deathMusic;
-        File background = new File("D:\\Study\\Final\\bin\\musicIG\\BackGroundMusicfinal.wav");
-        File death = new File("D:\\Study\\Final\\bin\\musicIG\\Deathmusic.wav");
+        private Clip winMusic;
+        private Clip gameoverMusic;
+        File background = new File("C:\\Users\\Khanh\\Downloads\\pacman-main\\Final\\bin\\musicIG\\BackGroundMusicfinal.wav");
+        File death = new File("C:\\Users\\Khanh\\Downloads\\pacman-main\\Final\\bin\\musicIG\\Deathmusic.wav");
+        File win = new File("C:\\Users\\Khanh\\Downloads\\pacman-main\\Final\\bin\\musicIG\\winGame.wav");
+        File gameover = new File("C:\\Users\\Khanh\\Downloads\\pacman-main\\Final\\bin\\musicIG\\gameoverMusic.wav");
 
 
        public void playBackgroundMusic() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -38,7 +46,25 @@ class music extends JPanel implements ActionListener {
                 deathMusic.start();
             }
         }
+        
+        public void playWinMusic() throws LineUnavailableException, UnsupportedAudioFileException, IOException{
+                AudioInputStream winInputStream = AudioSystem.getAudioInputStream(win);
+                winMusic = AudioSystem.getClip();
+                winMusic.open(winInputStream);
+                if (winMusic != null && !winMusic.isRunning()) {
+                    winMusic.start();
+                }
+            } 
 
+        public void gameoverMusic() throws LineUnavailableException, UnsupportedAudioFileException, IOException{
+            AudioInputStream gameoverInputStream = AudioSystem.getAudioInputStream(gameover);
+            gameoverMusic = AudioSystem.getClip();
+            gameoverMusic.open(gameoverInputStream);
+            if (gameoverMusic != null && !gameoverMusic.isRunning()) {
+                gameoverMusic.start();
+            }
+        } 
+        
         public void stopBGMusic() {
         	backgroundMusic.stop();
         }

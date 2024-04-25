@@ -13,6 +13,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import view.HomeMenu;
 
 public class Model extends JPanel implements ActionListener {
 
@@ -20,8 +21,9 @@ public class Model extends JPanel implements ActionListener {
     private final Font smallFont = new Font("Arial", Font.BOLD, 14);
     private boolean inGame = false;
     private boolean dying = false;
-    private music backgroundmusic = new music();;
-    private music deathmusic = new music();
+    private Music backgroundmusic = new Music();;
+    private Music deathmusic = new Music();
+    private Music oveMusic = new Music();
     private final int BLOCK_SIZE = 30 ;
     private final int N_BLOCKS = 21 ;
     private final int SCREEN_SIZE = BLOCK_SIZE * N_BLOCKS;
@@ -70,7 +72,7 @@ public class Model extends JPanel implements ActionListener {
     private int currentSpeed = 3;
     private short[] screenData;
     private Timer timer;
-
+   
     public Model() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         loadImages();
         initVariables();
@@ -81,12 +83,12 @@ public class Model extends JPanel implements ActionListener {
     
     
     private void loadImages() {
-    	down = new ImageIcon("D:\\Study\\Final\\bin\\images\\down.gif").getImage();
-    	up = new ImageIcon("D:\\Study\\Final\\bin\\images\\up.gif").getImage();
-    	left = new ImageIcon("D:\\Study\\Final\\bin\\images\\left.gif").getImage();
-    	right = new ImageIcon("D:\\Study\\Final\\bin\\images\\right.gif").getImage();
-        ghost = new ImageIcon("D:\\Study\\Final\\bin\\images\\ghost.gif").getImage();
-        heart = new ImageIcon("D:\\Study\\Final\\bin\\images\\heart.png").getImage();
+    	down = new ImageIcon("C:/Users/Khanh/Downloads/pacman-main/Final/src/images/down.gif").getImage();
+    	up = new ImageIcon("C:/Users/Khanh/Downloads/pacman-main/Final/src/images/up.gif").getImage();
+    	left = new ImageIcon("C:/Users/Khanh/Downloads/pacman-main/Final/src/images/left.gif").getImage();
+    	right = new ImageIcon("C:/Users/Khanh/Downloads/pacman-main/Final/src/images/right.gif").getImage();
+        ghost = new ImageIcon("C:/Users/Khanh/Downloads/pacman-main/Final/src/images/ghost.gif").getImage();
+        heart = new ImageIcon("C:/Users/Khanh/Downloads/pacman-main/Final/src/images/heart.png").getImage();
 
     }
        private void initVariables() {
@@ -101,16 +103,17 @@ public class Model extends JPanel implements ActionListener {
         dx = new int[4];
         dy = new int[4];
         
-        timer = new Timer(100, this);
+        timer = new Timer(60, this);
         timer.start();
     }
 
     private void playGame(Graphics2D g2d) throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
 
         if (dying) {
-        	backgroundmusic.wait(1000,0);
+        	backgroundmusic.stopBGMusic();
         	deathmusic.playDeathMusic();
         	Thread.sleep(1000);
+        	backgroundmusic.playBackgroundMusic();
             death();
 
         } else {
@@ -140,14 +143,14 @@ public class Model extends JPanel implements ActionListener {
         }
     }
 
-    private void checkMaze() {
+    private void checkMaze() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
 
         int i = 0;
         boolean finished = true;
 
         while (i < N_BLOCKS * N_BLOCKS && finished) {
 
-            if ((screenData[i]) != 0) {
+            if ((screenData[i] & 16) != 0 ) {
                 finished = false;
             }
 
@@ -155,26 +158,20 @@ public class Model extends JPanel implements ActionListener {
         }
 
         if (finished) {
-
-            score += 50;
-
-            if (N_GHOSTS < MAX_GHOSTS) {
-                N_GHOSTS++;
-            }
-
-            if (currentSpeed < maxSpeed) {
-                currentSpeed++;
-            }
-
-            initLevel();
+        	backgroundmusic.stopBGMusic();
+            backgroundmusic.playWinMusic();
+            inGame = false;
         }
     }
 
-    private void death() {
+    private void death() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
 
     	lives--;
 
         if (lives == 0) {
+
+			deathmusic.gameoverMusic();
+			backgroundmusic.stopBGMusic();
             inGame = false;
         }
 
@@ -483,6 +480,7 @@ public class Model extends JPanel implements ActionListener {
                 }
             }
         }
+			
 }
     @Override
     public void actionPerformed(ActionEvent e) {
